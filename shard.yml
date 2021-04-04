@@ -1,0 +1,13 @@
+name: mortgage
+version: 0.1.0
+
+authors:
+  - Marc Sardon <pringaohowto@gmail.com>
+
+targets:
+  mortgage:
+    main: src/mortgage_calculator.cr
+
+crystal: 1.0.0
+
+license: MIT
