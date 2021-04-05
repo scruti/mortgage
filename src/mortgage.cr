@@ -20,7 +20,7 @@ class Mortgage
     @monthly_rate = @rate / 100 / 12
   end
 
-  # Calculates the monthly payment for the mortgage loan.
+  # Monthly payment for the mortgage loan.
   def monthly_payment : Float64
     (loan * monthly_rate * ((1 + monthly_rate) ** term) /
     ((1 + monthly_rate) ** term - 1)).round(2)
@@ -32,16 +32,14 @@ class Mortgage
     ((1 + monthly_rate) ** term - 1)).round(2)
   end
 
-  # Calculates the amount of the payment for the given *month* that goes against
-  # the mortage interest.
+  # Amount of the payment for the given *month* that goes against the mortage interest.
   def interest_payment_at(month : Int32) : Float64
     return 0.00 unless valid_month?(month)
 
     (outstanding_loan(month - 1) * monthly_rate).round(2)
   end
 
-  # Calculates the amount of the payment for the given *month* that goes against
-  # the mortage principal.
+  # Amount of the payment for the given *month* that goes against the mortage principal.
   def principal_payment_at(month : Int32) : Float64
     return 0.00 unless valid_month?(month)
 
