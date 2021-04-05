@@ -23,13 +23,13 @@ class Mortgage
   # Monthly payment for the mortgage loan.
   def monthly_payment : Float64
     (loan * monthly_rate * ((1 + monthly_rate) ** term) /
-    ((1 + monthly_rate) ** term - 1)).round(2)
+      ((1 + monthly_rate) ** term - 1)).round(2)
   end
 
   # Outstanding loan after the payment for the *month*.
   def outstanding_loan(month : Int32) : Float64
     (loan * ((1 + monthly_rate) ** term - (1 + monthly_rate) ** month) /
-    ((1 + monthly_rate) ** term - 1)).round(2)
+      ((1 + monthly_rate) ** term - 1)).round(2)
   end
 
   # Amount of the payment for the given *month* that goes against the mortage interest.
