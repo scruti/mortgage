@@ -46,6 +46,16 @@ class Mortgage
     (monthly_payment - interest_payment_at(month)).round(2)
   end
 
+  # Total amount that will be paid over the lifetime of the mortgage
+  def total_payment : Float64
+    (monthly_payment * term).round(2)
+  end
+
+  # Total amount of interest that will be paid over the lifetime of the mortgage
+  def total_interest : Float64
+    (total_payment - loan).round(2)
+  end
+
   # Indicates if the given *month* belongs to the mortgage term.
   private def valid_month?(month : Int32) : Bool
     month >= 1 && month <= term

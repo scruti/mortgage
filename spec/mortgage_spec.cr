@@ -98,4 +98,16 @@ describe Mortgage do
       mortgage.principal_payment_at(1).should be < mortgage.principal_payment_at(2)
     end
   end
+
+  describe "#total_payment" do
+    it "calculates the total amount paid during the mortgage lifetime" do
+      mortgage.total_payment.should eq 151_894.80
+    end
+  end
+
+  describe "#total_interest" do
+    it "calculates the interest amount paid during the mortgage lifetime" do
+      mortgage.total_interest.should eq 51_894.80
+    end
+  end
 end
