@@ -37,21 +37,21 @@ describe Mortgage do
     end
   end
 
-  describe "#outstanding_loan" do
+  describe "#outstanding_loan_at" do
     it "calculates the amount left from the original loan after paying the given number of months" do
-      mortgage.outstanding_loan(month: 1).should eq 99_656.14
+      mortgage.outstanding_loan_at(1).should eq 99_656.14
     end
 
     it "decreases between months" do
-      mortgage.outstanding_loan(1).should be > mortgage.outstanding_loan(2)
+      mortgage.outstanding_loan_at(1).should be > mortgage.outstanding_loan_at(2)
     end
 
     it "before the first month payment the outstansing loan is the original loan amount" do
-      mortgage.outstanding_loan(month: 0).should eq 100_000.00
+      mortgage.outstanding_loan_at(0).should eq 100_000.00
     end
 
     it "at the last month payment there is no outstanding loan" do
-      mortgage.outstanding_loan(month: 180).should eq 0.00
+      mortgage.outstanding_loan_at(180).should eq 0.00
     end
   end
 

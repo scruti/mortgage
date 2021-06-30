@@ -27,7 +27,7 @@ class Mortgage
   end
 
   # Outstanding loan after the payment for the *month*.
-  def outstanding_loan(month : Int32) : Float64
+  def outstanding_loan_at(month : Int32) : Float64
     (loan * ((1 + monthly_rate) ** term - (1 + monthly_rate) ** month) /
       ((1 + monthly_rate) ** term - 1)).round(2)
   end
@@ -36,7 +36,7 @@ class Mortgage
   def interest_payment_at(month : Int32) : Float64
     return 0.00 unless valid_month?(month)
 
-    (outstanding_loan(month - 1) * monthly_rate).round(2)
+    (outstanding_loan_at(month - 1) * monthly_rate).round(2)
   end
 
   # Amount of the payment for the given *month* that goes against the mortage principal.
