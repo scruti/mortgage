@@ -46,8 +46,16 @@ describe Mortgage do
       mortgage.outstanding_loan_at(1).should be > mortgage.outstanding_loan_at(2)
     end
 
-    it "before the first month payment the outstansing loan is the original loan amount" do
-      mortgage.outstanding_loan_at(0).should eq 100_000.00
+    it "raises an error when the given month is not positive" do
+      expect_raises(Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
+        mortgage.outstanding_loan_at(0)
+      end
+    end
+
+    it "raises an error when the given month exceeds the mortgage term" do
+      expect_raises(Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
+        mortgage.outstanding_loan_at(181)
+      end
     end
 
     it "at the last month payment there is no outstanding loan" do
@@ -60,16 +68,16 @@ describe Mortgage do
       mortgage.interest_payment_at(1).should eq 500
     end
 
-    it "returns 0 when given month excedes the mortgage term" do
-      mortgage.interest_payment_at(200).should eq 0.00
+    it "raises an error when the given month is not positive" do
+      expect_raises(Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
+        mortgage.interest_payment_at(0)
+      end
     end
 
-    it "returns 0 when the given 0 as month" do
-      mortgage.interest_payment_at(0).should eq 0.00
-    end
-
-    it "returns 0 when given a negative value as month" do
-      mortgage.interest_payment_at(-1).should eq 0.00
+    it "raises an error when the given month exceeds the mortgage term" do
+      expect_raises(Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
+        mortgage.interest_payment_at(181)
+      end
     end
 
     it "decreases between months" do
@@ -82,16 +90,16 @@ describe Mortgage do
       mortgage.principal_payment_at(1).should eq 343.86
     end
 
-    it "returns 0 when given month excedes the mortgage term" do
-      mortgage.principal_payment_at(200).should eq 0.00
+    it "raises an error when the given month is not positive" do
+      expect_raises(Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
+        mortgage.principal_payment_at(0)
+      end
     end
 
-    it "returns 0 when given 0 as month" do
-      mortgage.principal_payment_at(0).should eq 0.00
-    end
-
-    it "returns 0 when given a negative value as month" do
-      mortgage.principal_payment_at(-1).should eq 0.00
+    it "raises an error when the given month exceeds the mortgage term" do
+      expect_raises(Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
+        mortgage.principal_payment_at(181)
+      end
     end
 
     it "increases between months" do
