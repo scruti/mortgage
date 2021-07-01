@@ -16,6 +16,19 @@ class Mortgage
     end
   end
 
+  # Holds the information for an especific month payment.
+  # *number*: Payment number out of the total number of payments for the mortgage term.
+  # *amount*: Amount to pay.
+  # *principal*: Cuantity of the payment to reduce from the mortgage loan principal.
+  # *interest*: Cuantity of the payment corresponding to the mortgage interest.
+  # *outstanding*: Outstanding mortgage loan debt after the payment.
+  struct Payment
+    getter number, amount, principal, interest, outstanding
+
+    def initialize(@number : Int32, @amount : Float64, @principal : Float64, @interest : Float64, @outstanding : Float64)
+    end
+  end
+
   # Initializes a mortgage object.
   # *loan*: Loan amount taken for the mortgage.
   # *rate*: Annual fixed interest rate in percent.
@@ -24,6 +37,27 @@ class Mortgage
     raise InvalidRateException.new if rate <= 0.0
 
     @monthly_rate = @rate / 100 / 12
+  end
+
+  # Payment information for the given *month*
+  def payment_at(month : Int32) : Payment
+    raise InvalidMonthException.new unless valid_month?(month)
+
+    Payment.new(
+      month,
+      monthly_payment,
+      principal_payment_at(month),
+      interest_payment_at(month),
+      outstanding_loan_at(month)
+    )
+  end
+
+  # Array containing the information for each one of the payments during the full
+  # mortgage term.
+  def payments : Array(Payment)
+    payments = [] of Payment
+    1.upto(term) { |n| payments << payment_at(n) }
+    payments
   end
 
   # Monthly payment for the mortgage loan.

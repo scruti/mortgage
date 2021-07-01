@@ -118,4 +118,42 @@ describe Mortgage do
       mortgage.total_interest.should eq 51_894.80
     end
   end
+
+  describe "#payment_at" do
+    it "returned payment corresponds to the given payment number" do
+      mortgage.payment_at(5).number.should eq 5
+    end
+
+    it "contains the payment amount for the given month" do
+      mortgage.payment_at(1).amount.should eq 843.86
+    end
+
+    it "contains the principal amount for the given month" do
+      mortgage.payment_at(1).principal.should eq 343.86
+    end
+
+    it "contains the interest amount for the given month" do
+      mortgage.payment_at(1).interest.should eq 500
+    end
+
+    it "contains the outstanding mortgage amount for the given month" do
+      mortgage.payment_at(1).outstanding.should eq 99_656.14
+    end
+  end
+
+  describe "#payments" do
+    it "is an array of mortgage payments" do
+      typeof(mortgage.payments).should eq Array(Mortgage::Payment)
+    end
+
+    it "contains an element for each monthly payment during the full mortgage term" do
+      mortgage.payments.size.should eq 180
+    end
+
+    it "payments elements order matches the mortgage payment months" do
+      mortgage.payments.first.number.should eq 1
+      mortgage.payments[1].number.should eq 2
+      mortgage.payments.last.number.should eq 180
+    end
+  end
 end
