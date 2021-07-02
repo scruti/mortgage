@@ -141,19 +141,19 @@ describe Mortgage do
     end
   end
 
-  describe "#payments" do
+  describe "#schedule" do
     it "is an array of mortgage payments" do
-      typeof(mortgage.payments).should eq Array(Mortgage::Mortgage::Payment)
+      typeof(mortgage.schedule).should eq Array(Mortgage::Mortgage::Payment)
     end
 
-    it "contains an element for each monthly payment during the full mortgage term" do
-      mortgage.payments.size.should eq 180
+    it "contains each monthly payment for the full mortgage term" do
+      mortgage.schedule.size.should eq 180
     end
 
-    it "payments elements order matches the mortgage payment months" do
-      mortgage.payments.first.number.should eq 1
-      mortgage.payments[1].number.should eq 2
-      mortgage.payments.last.number.should eq 180
+    it "schedule elements order matches the mortgage payment months" do
+      mortgage.schedule.first.number.should eq 1
+      mortgage.schedule[1].number.should eq 2
+      mortgage.schedule.last.number.should eq 180
     end
   end
 end

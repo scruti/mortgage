@@ -53,9 +53,9 @@ module Mortgage
       )
     end
 
-    # Array containing the information for each one of the payments during the full
+    # Contains the information for each one of the payments during the full
     # mortgage term.
-    def payments : Array(Payment)
+    def schedule : Array(Payment)
       payments = [] of Payment
       1.upto(term) { |n| payments << payment_at(n) }
       payments
