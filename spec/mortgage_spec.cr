@@ -1,32 +1,32 @@
 require "./spec_helper"
 
 private def mortgage
-  Mortgage.new(loan: 100_000, rate: 6.0, term: 180)
+  Mortgage::Mortgage.new(loan: 100_000, rate: 6.0, term: 180)
 end
 
 describe Mortgage do
   describe "#initialize" do
     it "builds a mortgage object with the given attributes" do
-      m = Mortgage.new(loan: 100_000.00, rate: 6.00, term: 10)
+      m = Mortgage::Mortgage.new(loan: 100_000.00, rate: 6.00, term: 10)
       m.loan.should eq 100_000.00
       m.rate.should eq 6.00
       m.term.should eq 10
     end
 
     it "sets the monthly rate for the mortgage" do
-      m = Mortgage.new(loan: 100_000.00, rate: 6.00, term: 10)
+      m = Mortgage::Mortgage.new(loan: 100_000.00, rate: 6.00, term: 10)
       m.monthly_rate.should eq 0.005
     end
 
     it "raises an error when the given interest rate is 0" do
-      expect_raises(Mortgage::InvalidRateException, "Mortage interest rate must be a positive value") do
-        Mortgage.new(loan: 100_000.00, rate: 0.00, term: 10)
+      expect_raises(Mortgage::Mortgage::InvalidRateException, "Mortage interest rate must be a positive value") do
+        Mortgage::Mortgage.new(loan: 100_000.00, rate: 0.00, term: 10)
       end
     end
 
     it "raises an error when the given interest rate is negative" do
-      expect_raises(Mortgage::InvalidRateException, "Mortage interest rate must be a positive value") do
-        Mortgage.new(loan: 100_000.00, rate: -1.00, term: 10)
+      expect_raises(Mortgage::Mortgage::InvalidRateException, "Mortage interest rate must be a positive value") do
+        Mortgage::Mortgage.new(loan: 100_000.00, rate: -1.00, term: 10)
       end
     end
   end
@@ -47,13 +47,13 @@ describe Mortgage do
     end
 
     it "raises an error when the given month is not positive" do
-      expect_raises(Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
+      expect_raises(Mortgage::Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
         mortgage.outstanding_loan_at(0)
       end
     end
 
     it "raises an error when the given month exceeds the mortgage term" do
-      expect_raises(Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
+      expect_raises(Mortgage::Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
         mortgage.outstanding_loan_at(181)
       end
     end
@@ -69,13 +69,13 @@ describe Mortgage do
     end
 
     it "raises an error when the given month is not positive" do
-      expect_raises(Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
+      expect_raises(Mortgage::Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
         mortgage.interest_payment_at(0)
       end
     end
 
     it "raises an error when the given month exceeds the mortgage term" do
-      expect_raises(Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
+      expect_raises(Mortgage::Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
         mortgage.interest_payment_at(181)
       end
     end
@@ -91,13 +91,13 @@ describe Mortgage do
     end
 
     it "raises an error when the given month is not positive" do
-      expect_raises(Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
+      expect_raises(Mortgage::Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
         mortgage.principal_payment_at(0)
       end
     end
 
     it "raises an error when the given month exceeds the mortgage term" do
-      expect_raises(Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
+      expect_raises(Mortgage::Mortgage::InvalidMonthException, "Given month is outside the mortgage term") do
         mortgage.principal_payment_at(181)
       end
     end
@@ -143,7 +143,7 @@ describe Mortgage do
 
   describe "#payments" do
     it "is an array of mortgage payments" do
-      typeof(mortgage.payments).should eq Array(Mortgage::Payment)
+      typeof(mortgage.payments).should eq Array(Mortgage::Mortgage::Payment)
     end
 
     it "contains an element for each monthly payment during the full mortgage term" do

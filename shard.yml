@@ -6,7 +6,7 @@ authors:
 
 targets:
   mortgage:
-    main: src/mortgage_calculator.cr
+    main: src/mortgage.cr
 
 crystal: 1.0.0
 

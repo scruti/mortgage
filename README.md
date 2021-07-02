@@ -4,9 +4,21 @@ TODO: Write a description here
 
 ## Installation
 
-TODO: Write installation instructions here
+1. Add the dependency to your `shard.yml`:
+
+   ```yaml
+   dependencies:
+     mortgage:
+       github: scruti/mortgage
+   ```
+
+2. Run `shards install`
 
 ## Usage
+
+```crystal
+require "mortgage"
+```
 
 TODO: Write usage instructions here
 
@@ -24,4 +36,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [Marc Sardon](https://github.com/your-github-user) - creator and maintainer
+- [Marc Sardon](https://github.com/scruti) - creator and maintainer
