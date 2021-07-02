@@ -1,10 +1,11 @@
+name: Mortgage CI
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 jobs:
-  build:
+  format_checks:
     runs-on: ubuntu-latest
     steps:
       - name: Download source
@@ -13,5 +14,14 @@ jobs:
         uses: crystal-lang/install-crystal@v1
       - name: Check formatting
         run: crystal tool format --check
+      - name : Check linter
+        run: docker run -v $(pwd):/src veelenga/ameba
+  specs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download source
+        uses: actions/checkout@v2
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1
       - name: Run tests
         run: crystal spec --order=random --error-on-warnings
